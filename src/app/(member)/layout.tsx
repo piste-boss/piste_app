@@ -5,11 +5,11 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { href: "/dashboard", label: "ホーム", icon: "🏠" },
+  { href: "/member-dashboard", label: "ホーム", icon: "🏠" },
   { href: "/records", label: "記録", icon: "📋" },
   { href: "/photos", label: "写真", icon: "📸" },
   { href: "/weight", label: "体重", icon: "⚖️" },
-  { href: "/settings", label: "設定", icon: "⚙️" },
+  { href: "/member-settings", label: "設定", icon: "⚙️" },
 ];
 
 export default function MemberLayout({
@@ -22,7 +22,9 @@ export default function MemberLayout({
   return (
     <div className="flex min-h-screen flex-col">
       <header className="border-b bg-white px-4 py-3">
-        <h1 className="text-lg font-bold">Piste</h1>
+        <Link href="/member-dashboard">
+          <h1 className="text-lg font-bold">Piste</h1>
+        </Link>
       </header>
       <main className="flex-1 overflow-y-auto p-4 pb-20">{children}</main>
       <nav className="fixed bottom-0 left-0 right-0 border-t bg-white safe-bottom">
