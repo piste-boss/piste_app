@@ -55,6 +55,7 @@ export default function MemberPhotosPage() {
                   <Card key={photo.id} className="overflow-hidden">
                     <div className="aspect-[3/4] bg-muted flex items-center justify-center text-xs text-muted-foreground">
                       {photo.thumbnail_url ? (
+                        // eslint-disable-next-line @next/next/no-img-element
                         <img src={photo.thumbnail_url} alt="" className="h-full w-full object-cover" />
                       ) : (
                         "写真"

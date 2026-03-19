@@ -13,7 +13,7 @@ import {
 
 export default function TermsPage() {
   const router = useRouter();
-  const { termsAgreed, setField, nextStep, prevStep } = useSignupStore();
+  const { setField, nextStep, prevStep } = useSignupStore();
 
   const handleAgree = () => {
     setField("termsAgreed", true);

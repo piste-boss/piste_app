@@ -4,6 +4,12 @@ import { generateJsonWithGemini } from "@/lib/gemini/client";
 
 export async function POST(request: Request) {
   try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const body = await request.json();
 
     // Handle personality analysis
@@ -25,7 +31,6 @@ JSON形式で返してください:
 
     // Handle menu suggestion
     const { memberId } = body;
-    const supabase = await createClient();
 
     // Gather data
     const [

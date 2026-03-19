@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { BodyPhoto } from "@/types/database";
@@ -66,6 +66,7 @@ export default function MemberPhotosPage() {
                     <CardContent className="p-2">
                       <div className="aspect-[3/4] rounded bg-muted flex items-center justify-center text-xs text-muted-foreground">
                         {photo.thumbnail_url ? (
+                          // eslint-disable-next-line @next/next/no-img-element
                           <img
                             src={photo.thumbnail_url}
                             alt={`${type} ${photo.taken_at}`}

@@ -5,10 +5,14 @@ import { processPipelineJob } from "@/lib/pipeline/orchestrator";
 
 export async function POST(request: Request) {
   try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const body = await request.json();
     const { memberId, uploadedBy, filename, storagePath, fileSizeBytes } = body;
-
-    const supabase = await createClient();
     const fileType = detectFileType(filename);
 
     // Create inbox_file record

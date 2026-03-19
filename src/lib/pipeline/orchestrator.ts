@@ -1,5 +1,4 @@
 import { createClient } from "@/lib/supabase/server";
-import { detectFileType } from "./detect";
 import { transcribeAudio } from "./transcribe";
 import { structureTranscript } from "./structure";
 

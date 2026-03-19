@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { WeightChart } from "@/components/charts/weight-chart";
 import type { BodyWeight } from "@/types/database";
 
 export default function WeightPage() {
@@ -30,7 +30,10 @@ export default function WeightPage() {
     setLoading(false);
   };
 
-  useEffect(() => { loadWeights(); }, []);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    loadWeights();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,6 +55,11 @@ export default function WeightPage() {
   };
 
   if (loading) return <div className="p-4">読み込み中...</div>;
+
+  const chartData = weights.map((w) => ({
+    date: new Date(w.recorded_at).toLocaleDateString("ja-JP"),
+    weight: Number(w.weight_kg),
+  }));
 
   return (
     <div className="space-y-4">
@@ -80,6 +88,17 @@ export default function WeightPage() {
           </form>
         </CardContent>
       </Card>
+
+      {weights.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">体重グラフ</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <WeightChart data={chartData} />
+          </CardContent>
+        </Card>
+      )}
 
       <Card>
         <CardHeader>

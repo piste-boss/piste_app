@@ -5,6 +5,12 @@ import type { PhotoType } from "@/types/database";
 
 export async function POST(request: Request) {
   try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const formData = await request.formData();
     const file = formData.get("file") as File;
     const memberId = formData.get("memberId") as string;
@@ -13,8 +19,6 @@ export async function POST(request: Request) {
     if (!file || !memberId || !photoType) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
-
-    const supabase = await createClient();
 
     // Get member info
     const { data: member } = await supabase
